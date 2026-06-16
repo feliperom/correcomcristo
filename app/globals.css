@@ -1,26 +1,219 @@
 @import "tailwindcss";
 
+/* ============================================================
+   CORRE COM CRISTO · sistema de design
+   Conceito: "A Trilha que Glorifica" — movimento + louvor
+   Dois temas: dark (teal profundo) e light (branco + verdes do logo)
+   ============================================================ */
+
+@theme {
+  /* Marca — brilhos constantes (usados no tema dark e em glows) */
+  --color-lime: #b9f227;
+  --color-green: #44e07a;
+  --color-cyan: #22d3ee;
+  --color-navy: #16305c;
+
+  /* Tokens semânticos (default = dark; sobrescritos em [data-theme=light]) */
+  --color-night: #052e2b; /* fundo da página + texto sobre botões claros */
+  --color-deep: #073d39; /* fundo de seções alternadas */
+  --color-teal-900: #0a4944; /* superfície aninhada */
+  --color-teal-800: #0e5d56;
+  --color-teal-700: #14756b;
+  --color-ink: #eafff7; /* texto primário */
+  --color-muted: #8fc4ba; /* texto secundário */
+  --color-spring: #1fd3a3; /* acento legível (texto/bordas/preenchimentos) */
+  --color-accent: #b9f227; /* destaque (pontos, marcadores) */
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cadência global (0..1). Atualizada via requestAnimationFrame no PaceProvider. */
+  --pace: 0;
+  --beat: 0;
+
+  /* Gradiente da marca por tema */
+  --grad-1: #b9f227;
+  --grad-2: #44e07a;
+  --grad-3: #1fd3a3;
+  --grad-4: #22d3ee;
+
+  --glow-rgb: 68, 224, 122;
+  --grid-line: rgba(68, 224, 122, 0.05);
+  --sel-bg: #b9f227;
+  --sel-fg: #052e2b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+[data-theme="light"] {
+  --color-night: #ffffff;
+  --color-deep: #f1faf5;
+  --color-teal-900: #e9f6ef;
+  --color-teal-800: #dcefe4;
+  --color-teal-700: #b6e0cd;
+  --color-ink: #06302c;
+  --color-muted: #4f7e72;
+  --color-spring: #0a8f69;
+  --color-accent: #15a05f;
+
+  --grad-1: #6fbe06;
+  --grad-2: #1fae5a;
+  --grad-3: #0e9e84;
+  --grad-4: #0a96a6;
+
+  --glow-rgb: 18, 150, 95;
+  --grid-line: rgba(10, 120, 90, 0.06);
+  --sel-bg: #15a05f;
+  --sel-fg: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-night);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.45s ease, color 0.45s ease;
+}
+
+::selection {
+  background: var(--sel-bg);
+  color: var(--sel-fg);
+}
+
+/* ---- Tipografia de marca ------------------------------------ */
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+/* O "itálico" do lockup: inclinação que dá sensação de corrida */
+.kinetic {
+  transform: skewX(-7deg);
+  transform-origin: left center;
+}
+
+/* Gradiente da marca aplicado em texto */
+.brand-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--grad-1) 0%,
+    var(--grad-2) 38%,
+    var(--grad-3) 64%,
+    var(--grad-4) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-fill {
+  background: linear-gradient(
+    100deg,
+    var(--grad-1),
+    var(--grad-2) 45%,
+    var(--grad-4)
+  );
+}
+
+/* ---- Textura: grão + grid de mapa --------------------------- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+[data-theme="light"] .grain::after {
+  opacity: 0.035;
+}
+
+.map-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---- Pulso da cadência (usa --pace) ------------------------- */
+.pace-glow {
+  filter: drop-shadow(
+    0 0 calc(8px + var(--pace) * 26px)
+      rgba(var(--glow-rgb), calc(0.25 + var(--pace) * 0.5))
+  );
+}
+
+.pace-scale {
+  transform: scale(calc(1 + var(--pace) * 0.06));
+}
+
+/* ---- Telemetria / dados de GPS ------------------------------ */
+.telemetry {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Animações utilitárias ---------------------------------- */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ticker-run {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ticker-run 28s linear infinite;
+}
+
+/* Linha pontilhada estilo rota */
+.route-dash {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-spring) 0 14px,
+    transparent 14px 28px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pace-scale { transform: none; }
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-night); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-teal-700);
+  border-radius: 99px;
 }

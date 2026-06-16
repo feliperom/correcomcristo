@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Corre com Cristo · Kahal Run
 
-## Getting Started
+One-page imersiva do movimento **Corre com Cristo**. Conceito: **"A Trilha que Glorifica"** — a página é um percurso de corrida que se desenha conforme você rola e pulsa na cadência do louvor.
 
-First, run the development server:
+Movimento como metáfora: trilha de GPS que se desenha no scroll, tipografia cinética, contador de km (perseverança de Hebreus 12) e um motor de áudio-reativo ("Pace da Fé").
+
+## Rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # desenvolvimento em http://localhost:3000
+npm run build    # build de produção
+npm start        # servir o build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Onde editar (sem mexer em código)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Quase tudo é controlado por **`lib/site-config.ts`**. Itens marcados com `isPlaceholder: true` precisam do conteúdo real:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| O quê | Onde |
+| --- | --- |
+| Link do WhatsApp ("Quero correr") | `siteConfig.whatsapp.url` |
+| Playlist de louvor (áudio-reativo) | `siteConfig.audio.trackUrl` |
+| Agenda de treinos | `schedule` |
+| Fotos da galeria (IDs do Google Drive) | `gallery` + `galleryDriveUrl` |
+| Versículos do dia | `verses` |
+| Testemunhos | `testimonials` |
+| Produtos da loja (boné/camiseta) | `products` |
+| Pilares | `pillars` |
 
-## Learn More
+### Pace da Fé (áudio)
 
-To learn more about Next.js, take a look at the following resources:
+Por padrão o botão "Pace da Fé" toca uma **cadência gerada na hora** (sem arquivo) e tudo pulsa nela. Para usar uma **playlist de louvor real** com áudio-reativo completo:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Coloque um `.mp3` em `public/audio/` (ex: `public/audio/louvor.mp3`).
+2. Aponte `siteConfig.audio.trackUrl = "/audio/louvor.mp3"`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> Embed do Spotify não permite análise de áudio (cross-origin), por isso usamos arquivo local.
 
-## Deploy on Vercel
+### Fotos (Google Drive)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A galeria carrega as fotos **direto do CDN do Google** a partir dos IDs dos arquivos no Drive — sem baixar nada para o repositório. Para adicionar/trocar:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Pegue o ID do arquivo no Drive (`.../file/d/<ID>/view`).
+2. Adicione em `gallery` (`{ id, alt, span }`, onde `span` é `wide | tall | normal`).
+3. Atualize `galleryDriveUrl` (pasta) — é o destino do botão "Baixar fotos".
+
+> As fotos são servidas com `referrerPolicy="no-referrer"` (o Google bloqueia hotlink com Referer de outra origem). A pasta precisa estar acessível por link.
+
+## Stack
+
+Next.js 16 (App Router) · TypeScript · Tailwind v4 · Motion · Lenis (scroll suave) · Web Audio API. Pronto para deploy na Vercel.
+
+## Acessibilidade
+
+Respeita `prefers-reduced-motion`: quem prefere menos animação recebe a versão calma, sem pulsos nem áudio automático.
