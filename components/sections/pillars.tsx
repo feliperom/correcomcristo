@@ -7,7 +7,7 @@ export function Pillars() {
       <div className="mx-auto max-w-6xl px-6 md:px-16">
         <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-none text-ink">
-            5 <span className="brand-gradient">pontos</span> do<br />
+            5 <span className="brand-gradient">pilares</span> do<br />
             corre com Cristo
           </h2>
           <span className="telemetry text-xs uppercase tracking-[0.2em] text-muted">
