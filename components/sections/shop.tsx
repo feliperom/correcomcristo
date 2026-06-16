@@ -16,7 +16,7 @@ export function Shop() {
             </h2>
           </div>
           <span className="telemetry text-xs uppercase tracking-[0.2em] text-muted">
-            cada peça testemunha
+            cada peça um testemunho
           </span>
         </Reveal>
 
@@ -53,10 +53,6 @@ export function Shop() {
             </Reveal>
           ))}
         </div>
-
-        <p className="mt-6 telemetry text-xs text-muted">
-          * Adicione fotos, preços e links de compra reais em <code>lib/site-config.ts</code>.
-        </p>
       </div>
     </section>
   );

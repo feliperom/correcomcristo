@@ -128,20 +128,20 @@ export const gallery = [
 export const testimonials = [
   {
     quote:
-      "Eu não corria por nada. Aqui entendi que não importa o ritmo — importa estar junto, olhando para Jesus.",
-    author: "Corredor da Kahal Run",
+      "Eu não iria vir pois não conhecia ninguém. Estava com um problema no joelho mas chegando no Corre com Cristo vi outra vibe, todos no mesmo propósito e meu joelho até melhorou.",
+    author: "Angelita Silva",
     isPlaceholder: true,
   },
   {
     quote:
-      "Cada treino vira um culto ao ar livre. Saio mais forte no corpo e renovado no espírito.",
-    author: "Corredora da Kahal Run",
+      "Foi uma benção a 1ª edição, tenho certeza que é a primeira de muitas. Organizaçã e mídia foram uma benção, edificou nossas vidas pois aqui teve louvor, oração, presença de Deus",
+    author: "Anderson Dutra",
     isPlaceholder: true,
   },
   {
     quote:
-      "Encontrei irmãos que viraram família. O propósito é maior que qualquer pace.",
-    author: "Corredor da Kahal Run",
+      "Foi incrível a 1ª edição do Corre com Cristo, turma super animada e com muita energia, todos louvando a Deus, correndo e caminhando em família e espero que no próximos venham mais pessoas!",
+    author: "Allan Nascimento",
     isPlaceholder: true,
   },
 ] as const;

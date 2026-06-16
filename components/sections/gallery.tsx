@@ -25,7 +25,7 @@ export function Gallery() {
               Reino em Movimento
             </span>
             <h2 className="mt-3 font-display text-[clamp(1.7rem,5vw,2.5rem)] leading-none text-ink">
-              A trilha em <span className="brand-gradient">algumas imagens</span>
+              1ª Edição em <span className="brand-gradient">algumas imagens</span>
             </h2>
           </div>
           <a
