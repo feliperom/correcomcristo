@@ -6,7 +6,7 @@
 
 export const siteConfig = {
   name: "Corre com Cristo",
-  crew: "Kahal Run",
+  crew: "Edição 1 - Kahal Run",
   region: "Baixada Santista · SP",
   tagline: "Reino em Movimento",
   verseRef: "Hebreus 12:1-2",

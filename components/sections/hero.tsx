@@ -29,7 +29,7 @@ export function Hero() {
 
   // No tema claro o lockup brilhante lava no branco — usamos o texto cinético
   // com o gradiente verde-fechado, que tem contraste.
-  const showImage = theme === "dark" && !lockupError;
+  // const showImage = theme === "dark" && !lockupError;
 
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden map-grid px-6 pb-24 pt-28 md:px-16">
@@ -58,8 +58,7 @@ export function Hero() {
 
         <h1 className="font-display kinetic text-[clamp(3.4rem,15vw,11rem)] leading-[0.8]">
           <span className="sr-only">Corre com Cristo</span>
-          {showImage ? (
-            <motion.img
+          <motion.img
               ref={lockupRef}
               src={LOCKUP_SRC}
               alt=""
@@ -70,22 +69,6 @@ export function Hero() {
               transition={{ duration: 1, ease: EASE, delay: 0.15 }}
               className="w-full max-w-[min(92vw,54rem)] pace-glow"
             />
-          ) : (
-            <span aria-hidden>
-              {["CORRE", "COM", "CRISTO"].map((word, index) => (
-                <span key={word} className="block overflow-hidden">
-                  <motion.span
-                    className="block brand-gradient"
-                    initial={{ y: "110%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ duration: 0.9, ease: EASE, delay: 0.15 + index * 0.12 }}
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </span>
-          )}
         </h1>
 
         <motion.div
