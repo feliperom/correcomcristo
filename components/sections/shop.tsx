@@ -1,6 +1,5 @@
-import { products } from "@/lib/site-config";
+import { products, siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/ui/reveal";
-import { FullLockup } from "@/components/ui/logo";
 
 export function Shop() {
   return (
@@ -28,7 +27,11 @@ export function Shop() {
               className="group flex flex-col overflow-hidden rounded-3xl border border-spring/15 bg-deep transition-colors hover:border-spring/50"
             >
               <div className="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-br from-teal-900 to-night">
-                <FullLockup className="text-3xl opacity-90 transition-transform duration-700 group-hover:scale-110" />
+                {/* <FullLockup className="text-3xl opacity-90 transition-transform duration-700 group-hover:scale-110" /> */}
+                <img 
+                  src={product.href} 
+                  alt="" 
+                />
                 <span className="absolute right-4 top-4 telemetry text-[10px] uppercase tracking-wide text-accent">
                   preview
                 </span>
@@ -43,10 +46,10 @@ export function Shop() {
                     {product.price}
                   </span>
                   <a
-                    href={product.href || "#contato"}
+                    href={siteConfig.whatsapp.urlBuy || "#contato"}
                     className="mt-2 inline-block rounded-full border border-spring/40 px-4 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-spring/15"
                   >
-                    {product.href ? "Comprar" : "Quero esta"}
+                    {product.href ? "Eu quero" : "Quero esta"}
                   </a>
                 </div>
               </div>

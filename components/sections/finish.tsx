@@ -25,7 +25,7 @@ export function Finish() {
 
         <Reveal delay={0.05}>
           <h2 className="mt-6 font-display kinetic text-[clamp(2.6rem,9vw,6rem)] leading-[0.85]">
-            <span className="block brand-gradient">Corra com Cristo</span>
+            <span className="block brand-gradient">Corre com Cristo</span>
             <span className="block text-ink">e com a gente</span>
           </h2>
         </Reveal>

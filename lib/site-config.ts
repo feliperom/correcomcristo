@@ -21,6 +21,7 @@ export const siteConfig = {
   // TROCAR: link do grupo ou número de WhatsApp.
   whatsapp: {
     url: "https://chat.whatsapp.com/DyLulSTgpqm1VVE96naMQp?mode=gi_t",
+    urlBuy: "https://chat.whatsapp.com/DyLulSTgpqm1VVE96naMQp?mode=gi_t",
     isPlaceholder: true,
   },
 
@@ -151,14 +152,14 @@ export const products = [
   {
     name: "Boné Corre com Cristo",
     variant: "5-panel · perfurado · dry",
-    price: "R$ 119",
-    href: "",
+    price: "R$ 59",
+    href: "/bone-corre.jpg",
     isPlaceholder: true,
   },
   {
     name: "Camiseta Corre com Cristo",
     variant: "Dry fit · Kahal Run",
-    price: "R$ 89",
+    price: "R$ 79",
     href: "",
     isPlaceholder: true,
   },

@@ -189,6 +189,16 @@ body {
   animation: ticker-run 28s linear infinite;
 }
 
+/* Zoom lento estilo Ken Burns para o hero */
+@keyframes hero-zoom {
+  from { transform: scale(1.04); }
+  to { transform: scale(1.16); }
+}
+
+.hero-zoom {
+  animation: hero-zoom 26s ease-in-out infinite alternate;
+}
+
 /* Linha pontilhada estilo rota */
 .route-dash {
   background-image: repeating-linear-gradient(
