@@ -174,6 +174,7 @@ export const course = {
   from: "Emissário Submarino · Santos",
   to: "Canto da Ilha Porchat · São Vicente",
   surface: "pela faixa de areia",
+  isPlaceholder: true,
   stages: [
     {
       km: 0,
