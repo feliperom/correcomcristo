@@ -45,12 +45,12 @@ export function Shop() {
                   <span className="block font-display text-2xl brand-gradient">
                     {product.price}
                   </span>
-                  <a
+                  {/* <a
                     href={siteConfig.whatsapp.urlBuy || "#contato"}
                     className="mt-2 inline-block rounded-full border border-spring/40 px-4 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-spring/15"
                   >
                     {product.href ? "Eu quero" : "Quero esta"}
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </Reveal>

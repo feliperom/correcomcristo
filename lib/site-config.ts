@@ -164,3 +164,46 @@ export const products = [
     isPlaceholder: true,
   },
 ] as const;
+
+// TROCAR: percurso real do evento (distância e pontos de cada etapa).
+export type CourseStageType = "start" | "praise" | "water" | "prayer" | "finish";
+
+export const course = {
+  totalKm: 3.5, // estimativa — confirmar a distância real do trajeto
+  approximate: true,
+  from: "Emissário Submarino · Santos",
+  to: "Canto da Ilha Porchat · São Vicente",
+  surface: "pela faixa de areia",
+  stages: [
+    {
+      km: 0,
+      title: "Emissário Submarino",
+      type: "start" as CourseStageType,
+      desc: "Largada na faixa de areia do José Menino, em Santos. Aquecimento e oração antes do primeiro passo.",
+    },
+    {
+      km: 1,
+      title: "Ponto de Louvor",
+      type: "praise" as CourseStageType,
+      desc: "Rumo à divisa, ao pé da Ilha Porchat. Aqui a playlist glorifica a Deus e o pace segue a batida.",
+    },
+    {
+      km: 2,
+      title: "Praia do Itararé",
+      type: "water" as CourseStageType,
+      desc: "Já em São Vicente: hidratação, com o mar de um lado e irmãos do outro.",
+    },
+    {
+      km: 2.7,
+      title: "Momento de Oração",
+      type: "prayer" as CourseStageType,
+      desc: "Olhando para Jesus, renovamos o fôlego do corpo e do espírito.",
+    },
+    {
+      km: 3.5,
+      title: "Canto da Ilha Porchat",
+      type: "finish" as CourseStageType,
+      desc: "Chegada em São Vicente. Celebração, comunhão e gratidão. Maior que a performance é o propósito.",
+    },
+  ],
+} as const;
