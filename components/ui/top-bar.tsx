@@ -10,7 +10,7 @@ const SECTIONS = [
   { href: "#manifesto", label: "Manifesto" },
   { href: "#pilares", label: "Pilares" },
   // { href: "#versiculo", label: "Versículo" },
-  { href: "#percurso", label: "Percurso" },
+  // { href: "#percurso", label: "Percurso" },
   { href: "#agenda", label: "Agenda" },
   { href: "#galeria", label: "Galeria" },
   { href: "#testemunhos", label: "Testemunhos" },
