@@ -152,15 +152,15 @@ export const products = [
   {
     name: "Boné Corre com Cristo",
     variant: "5-panel · perfurado · dry",
-    price: "R$ 59",
+    price: "R$ 49",
     href: "/bone-corre.jpg",
     isPlaceholder: true,
   },
   {
     name: "Camiseta Corre com Cristo",
-    variant: "Dry fit · Kahal Run",
-    price: "R$ 79",
-    href: "",
+    variant: "Poliester com elastano · tratamento proteção solar",
+    price: "R$ 59",
+    href: "camiseta-corre.png",
     isPlaceholder: true,
   },
 ] as const;
