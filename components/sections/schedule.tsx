@@ -18,11 +18,10 @@ export function Schedule() {
           <Reveal className="flex flex-col items-start gap-4 rounded-3xl border border-spring/20 bg-night p-8 md:flex-row md:items-center md:justify-between md:p-10">
             <div>
               <span className="font-display text-2xl uppercase text-ink md:text-3xl">
-                Agenda <span className="brand-gradient">em breve</span>
+                18/07-<span className="brand-gradient">Emissário Submarino</span>
               </span>
               <p className="mt-2 max-w-md text-sm text-muted">
-                Os próximos treinos estão sendo confirmados. Entre no grupo para
-                receber dia, horário e ponto de encontro em primeira mão.
+                Entre no grupo para receber mais detalhes.
               </p>
             </div>
             <a
