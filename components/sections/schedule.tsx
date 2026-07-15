@@ -18,7 +18,7 @@ export function Schedule() {
           <Reveal className="flex flex-col items-start gap-4 rounded-3xl border border-spring/20 bg-night p-8 md:flex-row md:items-center md:justify-between md:p-10">
             <div>
               <span className="font-display text-2xl uppercase text-ink md:text-3xl">
-                18/07 | 7:45h<span className="brand-gradient">Emissário Submarino</span>
+                18/07 | 7:45h - <span className="brand-gradient">Emissário Submarino</span>
               </span>
               <p className="mt-2 max-w-md text-sm text-muted">
                 Entre no grupo para receber mais detalhes.
