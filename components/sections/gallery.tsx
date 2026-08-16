@@ -1,4 +1,4 @@
-import { gallery, galleryDriveUrl } from "@/lib/site-config";
+import { gallery, galleryDriveUrl, galleryFirstEditionDriveUrl } from "@/lib/site-config";
 import { Reveal } from "@/components/ui/reveal";
 
 const SPAN_CLASS: Record<string, string> = {
@@ -25,18 +25,29 @@ export function Gallery() {
               Reino em Movimento
             </span>
             <h2 className="mt-3 font-display text-[clamp(1.7rem,5vw,2.5rem)] leading-none text-ink">
-              1ª Edição em <span className="brand-gradient">algumas imagens</span>
+              2ª Edição em <span className="brand-gradient">algumas imagens</span>
             </h2>
           </div>
-          <a
-            href={galleryDriveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full border border-spring/40 px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-spring/10"
-          >
-            <DownloadIcon />
-            Baixar todas as fotos
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={galleryDriveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full border border-spring/40 px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-spring/10"
+            >
+              <DownloadIcon />
+              Fotos da 2ª edição
+            </a>
+            <a
+              href={galleryFirstEditionDriveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full border border-spring/20 px-6 py-3 text-sm font-medium text-muted transition-colors hover:border-spring/40 hover:text-ink"
+            >
+              <DownloadIcon />
+              Fotos da 1ª edição
+            </a>
+          </div>
         </Reveal>
 
         <div className="grid auto-rows-[200px] grid-flow-row-dense grid-cols-2 gap-3 md:auto-rows-[230px] lg:grid-cols-3">

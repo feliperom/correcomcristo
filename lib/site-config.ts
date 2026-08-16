@@ -100,29 +100,32 @@ export const schedule: ScheduleItem[] = [
   // },
 ];
 
-// Pasta do Google Drive com todas as fotos (botão "Baixar fotos").
+// Pastas do Google Drive com todas as fotos de cada edição (botões "Baixar fotos").
 export const galleryDriveUrl =
+  "https://drive.google.com/drive/folders/1XR3Ma-10mBiBc7BUyODmorJ_-7VuuVJx?usp=sharing";
+
+export const galleryFirstEditionDriveUrl =
   "https://drive.google.com/drive/folders/1BbcPG7wjdaXL2iEUaRFwg9yiWvhkkIXo?usp=sharing";
 
 /**
- * Fotos servidas direto do CDN do Google a partir do Drive. Cada `id` é o
- * ID do arquivo no Drive; a galeria monta a miniatura e o link de download.
- * Para adicionar/trocar fotos, basta editar esta lista (id + span).
+ * Fotos da 2ª edição (julho/2026) servidas direto do CDN do Google a partir do
+ * Drive. Cada `id` é o ID do arquivo no Drive; a galeria monta a miniatura e o
+ * link de download. Para adicionar/trocar fotos, basta editar esta lista.
  */
 export const gallery = [
-  { id: "16iOqe82sNm_JSvTlm1KJcBUcInSj8YJN", alt: "Corre com Cristo — encontro do grupo", span: "wide" },
-  { id: "1glczu00XuAAoNuaGDNXwnc4ZQR8NEWum", alt: "Corredores da Kahal Run", span: "normal" },
-  { id: "1A-xTi0t_2lr7DmJoMaM2xwCyr4lEeHTF", alt: "Treino na Baixada Santista", span: "tall" },
-  { id: "16Ul9RejDYpVxSQHGIGQxot-0Ycrf4XzC", alt: "Comunhão antes da corrida", span: "normal" },
-  { id: "1cLMYD5FHMtUOelY1oTU2rhCVw5neqo9p", alt: "Momento de louvor", span: "wide" },
-  { id: "1FMjaGwaYBYIY2NTQihJjjkBjjMTmX8Rg", alt: "Largada do grupo", span: "normal" },
-  { id: "1IfyjLAidR8UFtGVNZTDSzWQSmGgh_XNF", alt: "Reino em Movimento", span: "normal" },
-  { id: "1ghgGOZAmNg8AyX11a9YefM5QKNPzKWCC", alt: "Corredores na orla", span: "tall" },
-  { id: "1_72SEmFFQcRJ7XiEWkPc0vtRv7eK5T-O", alt: "Alegria da caminhada", span: "normal" },
-  { id: "1ujIvXgW_NlYD3MYUusl92Bw2_E4UAwEw", alt: "Pace da Fé", span: "wide" },
-  { id: "11fyc_CteJlR4hccVmDDdVps-P8-1Kr1a", alt: "Irmãos na fé", span: "normal" },
-  { id: "1mmwETRu9dwLvRbFE7LROqyTmZzpkKbK0", alt: "Celebração pós-treino", span: "normal" },
-  { id: "1nBixwOvFTVm4vyJyEhKSCGQC6Wf8E694", alt: "Corre com Cristo — Kahal Run", span: "tall" },
+  { id: "1SI-QNxL5Bp5P-g3718ALcVmbVp3Ak0C2", alt: "Foto oficial da 2ª edição com a bandeira Corre com Cristo", span: "wide" },
+  { id: "1QSaB2F3KJKcKNhksMLVg0X_HCuOF-37M", alt: "Bandeira hasteada durante o aquecimento", span: "normal" },
+  { id: "1KNY4T0TWq5HrtqhJkIi-uAitGAq5P60C", alt: "Palavra e oração antes da largada", span: "tall" },
+  { id: "1w15ghmEDk0-r_qhEu-ArsL6TDNhMXLfi", alt: "Aquecimento em grupo na pista", span: "normal" },
+  { id: "1Ml9iGVxrIF-QU36cTv1-ATsCiiOwe0TF", alt: "Largada da 2ª edição", span: "wide" },
+  { id: "1ZpwAsh5-vzx1sVLcAZxN1tTtkU-PLxbD", alt: "Caminhada na faixa de areia", span: "normal" },
+  { id: "14ymRuoy_yMRbsn6MzzOUVWP9220ahuff", alt: "Pelotão na orla da praia", span: "normal" },
+  { id: "1Qi9IAK64m9r9oMXkIYSWBrMVSlzyboRd", alt: "Casal com a camisa do Corre com Cristo", span: "tall" },
+  { id: "1baZ-k1APNEwwLPcOg6WvTuf7NBWham8W", alt: "Família correndo junto na areia", span: "normal" },
+  { id: "1lNXyT8a9Qid1iY9wMZuU59n2TEEe6GjX", alt: "Bandeira erguida na praia durante o percurso", span: "wide" },
+  { id: "1bS7z_zozBtKNh4VPslucL3gAilGX1337", alt: "Corredores a caminho do final do percurso", span: "normal" },
+  { id: "1iOFILrNwDa46RXMmqXawnJZFOcO0ICU5", alt: "Alongamento coletivo antes da corrida", span: "normal" },
+  { id: "1R83kUcMyrDrpHLd7svK3RCSaahz38m2Y", alt: "Participantes acenando durante a caminhada", span: "tall" },
 ] as const;
 
 // TROCAR pelos depoimentos reais dos corredores.
