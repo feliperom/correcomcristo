@@ -7,6 +7,7 @@
  * largura e altura — isso reserva o espaço no layout e evita salto (CLS).
  */
 
+import type { StaticImageData } from "next/image";
 import capImage from "@/public/bone-corre.jpg";
 import shirtImage from "@/public/camiseta-corre.jpg";
 
@@ -135,7 +136,13 @@ export const gallery = [
 ] as const;
 
 // TROCAR pelos depoimentos reais dos corredores.
-export const testimonials = [
+type Testimonial = {
+  quote: string;
+  author: string;
+  isPlaceholder?: boolean;
+};
+
+export const testimonials: Testimonial[] = [
   {
     quote:
       "Eu não iria vir pois não conhecia ninguém. Estava com um problema no joelho mas chegando no Corre com Cristo vi outra vibe, todos no mesmo propósito e meu joelho até melhorou.",
@@ -157,7 +164,16 @@ export const testimonials = [
 ] as const;
 
 // TROCAR: produtos, preços e link de compra reais.
-export const products = [
+type Product = {
+  name: string;
+  variant: string;
+  price: string;
+  image: StaticImageData;
+  alt: string;
+  isPlaceholder?: boolean;
+};
+
+export const products: Product[] = [
   {
     name: "Boné Corre com Cristo",
     variant: "5-panel · perfurado · dry",

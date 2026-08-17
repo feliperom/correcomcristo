@@ -66,6 +66,8 @@ export function Gallery() {
           </div>
         </Reveal>
 
+        {/* Sem miniaturas a seção ainda vale pelos links do Drive acima. */}
+        {gallery.length > 0 && (
         <div className="grid auto-rows-[200px] grid-flow-row-dense grid-cols-2 gap-3 md:auto-rows-[230px] lg:grid-cols-3">
           {gallery.map((photo, index) => (
             <Reveal
@@ -96,10 +98,13 @@ export function Gallery() {
             </Reveal>
           ))}
         </div>
+        )}
 
-        <p className="mt-6 telemetry text-xs text-muted">
-          Fotos por Paloma Costa · clique em qualquer foto para abrir e baixar no Google Drive.
-        </p>
+        {gallery.length > 0 && (
+          <p className="mt-6 telemetry text-xs text-muted">
+            Fotos por Paloma Costa · clique em qualquer foto para abrir e baixar no Google Drive.
+          </p>
+        )}
       </div>
     </section>
   );

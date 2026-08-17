@@ -2,6 +2,8 @@ import { testimonials } from "@/lib/site-config";
 import { Reveal } from "@/components/ui/reveal";
 
 export function Testimonials() {
+  if (testimonials.length === 0) return null;
+
   return (
     <section id="testemunhos" className="relative bg-deep py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-16">

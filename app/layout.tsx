@@ -25,14 +25,63 @@ const mono = Spline_Sans_Mono({
   display: "swap",
 });
 
+const DESCRIPTION =
+  "Mais do que um grupo de corrida — um movimento de pessoas que glorificam a Deus em cada passo. Baixada Santista. Reino em Movimento.";
+
+/**
+ * A Vercel expõe o domínio de produção em tempo de build. Sem ele (dev, ou
+ * outro host), cai em localhost — o importante é que as URLs de Open Graph
+ * sejam absolutas, senão o preview do link no WhatsApp vem sem imagem.
+ */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
+/**
+ * O conteúdo entra na página com opacity:0 e só aparece quando o Motion anima.
+ * Sem JavaScript nada disso roda e a página fica em branco, então devolvemos a
+ * visibilidade no CSS. `!important` numa folha de estilo vence o style inline.
+ */
+const NO_SCRIPT_FALLBACK = `<style>
+  [style*="opacity:0"] { opacity: 1 !important; transform: none !important; }
+</style>`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: `${siteConfig.name} · ${siteConfig.crew}`,
-  description:
-    "Mais do que um grupo de corrida — um movimento de pessoas que glorificam a Deus em cada passo. Baixada Santista. Reino em Movimento.",
+  description: DESCRIPTION,
+  applicationName: siteConfig.name,
+  manifest: "/favicon/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: { url: "/favicon/apple-touch-icon.png", sizes: "180x180" },
+  },
   openGraph: {
     title: `${siteConfig.name} · ${siteConfig.crew}`,
     description: "Reino em Movimento. Aqui a playlist glorifica a Deus.",
     type: "website",
+    locale: "pt_BR",
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: "/og-corre-com-cristo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Equipe Corre com Cristo reunida na orla da Baixada Santista",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} · ${siteConfig.crew}`,
+    description: "Reino em Movimento. Aqui a playlist glorifica a Deus.",
+    images: ["/og-corre-com-cristo.jpg"],
   },
 };
 
@@ -49,13 +98,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon//favicon.svg" />
-        <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon//apple-touch-icon.png" />
-        <link rel="manifest" href="/favicon//site.webmanifest" />
+        <noscript dangerouslySetInnerHTML={{ __html: NO_SCRIPT_FALLBACK }} />
       </head>
       <body className="grain">
+        <a href="#top" className="skip-link">
+          Pular para o conteúdo
+        </a>
         <ThemeProvider>
           <PaceProvider>
             <SmoothScroll>{children}</SmoothScroll>

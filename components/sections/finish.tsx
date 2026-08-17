@@ -42,7 +42,7 @@ export function Finish() {
             href={siteConfig.whatsapp.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full brand-fill px-8 py-4 font-display text-lg uppercase text-night transition-transform hover:scale-[1.03] pace-glow"
+            className="group inline-flex items-center gap-2 rounded-full brand-fill px-8 py-4 font-display text-lg uppercase text-on-brand transition-transform hover:scale-[1.03] pace-glow"
           >
             Quero correr
             <span className="transition-transform group-hover:translate-x-1">→</span>

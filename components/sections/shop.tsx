@@ -3,6 +3,8 @@ import { products } from "@/lib/site-config";
 import { Reveal } from "@/components/ui/reveal";
 
 export function Shop() {
+  if (products.length === 0) return null;
+
   return (
     <section id="loja" className="relative py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-16">

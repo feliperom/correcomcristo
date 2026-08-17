@@ -102,7 +102,7 @@ export function Hero() {
           <div className="flex flex-wrap items-center gap-3">
             <a
               href="#contato"
-              className="inline-flex items-center gap-2 rounded-full brand-fill px-7 py-3.5 font-display text-base uppercase text-night transition-transform hover:scale-[1.03] pace-glow"
+              className="inline-flex items-center gap-2 rounded-full brand-fill px-7 py-3.5 font-display text-base uppercase text-on-brand transition-transform hover:scale-[1.03] pace-glow"
             >
               Quero correr
               <span aria-hidden>→</span>

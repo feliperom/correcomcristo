@@ -14,7 +14,7 @@
   --color-navy: #16305c;
 
   /* Tokens semânticos (default = dark; sobrescritos em [data-theme=light]) */
-  --color-night: #052e2b; /* fundo da página + texto sobre botões claros */
+  --color-night: #052e2b; /* fundo da página */
   --color-deep: #073d39; /* fundo de seções alternadas */
   --color-teal-900: #0a4944; /* superfície aninhada */
   --color-teal-800: #0e5d56;
@@ -23,6 +23,13 @@
   --color-muted: #8fc4ba; /* texto secundário */
   --color-spring: #1fd3a3; /* acento legível (texto/bordas/preenchimentos) */
   --color-accent: #b9f227; /* destaque (pontos, marcadores) */
+
+  /**
+   * Texto sobre .brand-fill. Papel próprio, não reaproveita o fundo da página:
+   * a rampa da marca é clara no tema escuro e escura no tema claro, então a
+   * polaridade do rótulo inverte junto com ela.
+   */
+  --color-on-brand: #052e2b;
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
@@ -46,6 +53,15 @@
   --sel-fg: #052e2b;
 }
 
+/**
+ * Tema claro — composto, não invertido.
+ *
+ * No escuro as cores do logo são luz sobre teal profundo. Sobre papel branco a
+ * mesma luz desaparece, então aqui elas viram tinta: as matizes da marca são
+ * preservadas ao grau (133° 151° 175° 208°) e só a luminosidade desce, até todo
+ * par de texto passar 4.5:1. Por consequência .brand-fill fica escuro no claro
+ * e o rótulo do botão vira branco — ver --color-on-brand.
+ */
 [data-theme="light"] {
   --color-night: #ffffff;
   --color-deep: #f1faf5;
@@ -53,18 +69,19 @@
   --color-teal-800: #dcefe4;
   --color-teal-700: #b6e0cd;
   --color-ink: #06302c;
-  --color-muted: #4f7e72;
-  --color-spring: #0a8f69;
-  --color-accent: #15a05f;
+  --color-muted: #41796c;
+  --color-spring: #017f5d;
+  --color-accent: #00804a;
+  --color-on-brand: #ffffff;
 
-  --grad-1: #6fbe06;
-  --grad-2: #1fae5a;
-  --grad-3: #0e9e84;
-  --grad-4: #0a96a6;
+  --grad-1: #4b8301;
+  --grad-2: #048742;
+  --grad-3: #01846e;
+  --grad-4: #04818f;
 
-  --glow-rgb: 18, 150, 95;
+  --glow-rgb: 0, 128, 74;
   --grid-line: rgba(10, 120, 90, 0.06);
-  --sel-bg: #15a05f;
+  --sel-bg: #00804a;
   --sel-fg: #ffffff;
 }
 
@@ -75,6 +92,45 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Informa ao browser como pintar cursor, scrollbar nativa e controles. */
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/**
+ * Anel de foco da marca. O padrão do browser é um contorno laranja de 1px que
+ * some sobre o teal profundo; este acompanha o tema e sobrevive aos dois fundos.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-spring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Atalho de teclado: fica fora da tela até receber foco. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  border-radius: 999px;
+  background: var(--color-spring);
+  color: var(--color-night);
+  padding: 0.7rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.18s ease;
+}
+
+/* :focus, não :focus-visible — o link só é alcançável por teclado. */
+.skip-link:focus {
+  transform: translateY(0);
+  outline-offset: 4px;
 }
 
 body {

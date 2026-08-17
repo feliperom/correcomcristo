@@ -51,11 +51,12 @@ export function TrailLine() {
           </linearGradient>
         </defs>
 
-        {/* Rota ainda não percorrida */}
+        {/* Rota ainda não percorrida — segue o texto secundário do tema ativo */}
         <path
           d={ROUTE}
           fill="none"
-          stroke="rgba(143, 196, 186, 0.18)"
+          stroke="var(--color-muted)"
+          strokeOpacity={0.35}
           strokeWidth={2}
           strokeDasharray="1 7"
           vectorEffect="non-scaling-stroke"

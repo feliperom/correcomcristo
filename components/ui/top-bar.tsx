@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { Wordmark } from "@/components/ui/logo";
@@ -19,15 +19,78 @@ const SECTIONS = [
 ];
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const MENU_ID = "menu-principal";
+const FOCUSABLE = 'a[href], button:not([disabled])';
 
 export function TopBar() {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  /**
+   * O menu cobre a página inteira, então precisa se comportar como diálogo:
+   * o foco entra nele, circula dentro dele, Escape fecha e devolve o foco ao
+   * gatilho, e o conteúdo atrás fica inerte em vez de continuar tabulável.
+   */
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const menu = menuRef.current;
+    const trigger = triggerRef.current;
+    if (!menu) return;
+
+    const main = document.querySelector("main");
+    main?.setAttribute("inert", "");
+
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+
+    const items = () => Array.from(menu.querySelectorAll<HTMLElement>(FOCUSABLE));
+    items()[1]?.focus(); // o [0] é o botão de fechar; entra direto no primeiro link
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusable = items();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || !menu.contains(active))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      main?.removeAttribute("inert");
+      document.body.style.overflow = overflow;
+      trigger?.focus();
+    };
+  }, [menuOpen, closeMenu]);
 
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-4 py-4 md:px-6">
-        <a href="#top" aria-label="Corre com Cristo · início" className="md:ml-16">
+        <a
+          href="#top"
+          aria-label="Corre com Cristo · início"
+          className="rounded-full py-1.5 md:ml-16"
+        >
           <Wordmark />
         </a>
 
@@ -42,9 +105,11 @@ export function TopBar() {
           </button>
 
           <button
+            ref={triggerRef}
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
+            aria-controls={MENU_ID}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             className="flex h-11 items-center gap-2.5 rounded-full border border-spring/30 bg-deep/70 px-4 text-ink backdrop-blur-md transition-colors hover:border-spring/70"
           >
@@ -73,12 +138,30 @@ export function TopBar() {
         {menuOpen && (
           <motion.nav
             key="menu"
+            ref={menuRef}
+            id={MENU_ID}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de navegação"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 flex flex-col justify-center overflow-hidden bg-night/95 px-6 backdrop-blur-xl md:px-24"
           >
+            {/*
+              O X no cabeçalho fica fora do diálogo, e aria-modal esconde tudo que
+              está fora dele. Este é o controle de fechar que existe dentro: some
+              da tela até receber foco.
+            */}
+            <button
+              type="button"
+              onClick={closeMenu}
+              className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-6 focus-visible:top-6 focus-visible:z-10 focus-visible:rounded-full focus-visible:bg-spring focus-visible:px-5 focus-visible:py-2.5 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-night md:focus-visible:left-24"
+            >
+              Fechar menu
+            </button>
+
             <div
               aria-hidden
               className="pointer-events-none absolute -right-24 top-1/2 h-[34rem] w-[34rem] -translate-y-1/2 rounded-full opacity-20 blur-[120px]"
@@ -94,7 +177,7 @@ export function TopBar() {
                 >
                   <a
                     href={section.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                     className="group flex items-baseline gap-4 py-1.5"
                   >
                     <span className="telemetry text-xs text-spring opacity-60">

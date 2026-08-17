@@ -188,7 +188,7 @@ export function Course() {
                 transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
                 className="flex flex-col gap-4 sm:flex-row sm:items-start"
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl brand-fill text-night">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl brand-fill text-on-brand">
                   <StageIcon type={activeStage.type} />
                 </span>
                 <div>
