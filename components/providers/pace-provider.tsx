@@ -13,6 +13,14 @@ import { siteConfig } from "@/lib/site-config";
 const CADENCE_BPM = 165; // cadência típica de corrida
 const CONTEXT_ERROR = "usePace precisa estar dentro de <PaceProvider>";
 
+/**
+ * `--pace` alimenta brilhos decorativos, não leitura de conteúdo. Escrevemos a
+ * ~30fps e só quando o valor arredondado muda: cada escrita invalida o estilo
+ * do documento inteiro e repinta os `drop-shadow` que dependem dela.
+ */
+const PACE_FRAME_MS = 1000 / 30;
+const REDUCED_MOTION_PACE = "0.20";
+
 type PaceContextValue = {
   soundOn: boolean;
   toggleSound: () => void;
@@ -87,44 +95,75 @@ export function PaceProvider({ children }: { children: React.ReactNode }) {
   const cleanupRef = useRef<(() => void) | null>(null);
   const soundOnRef = useRef(false);
 
-  // Loop de animação: escreve --pace e --beat no documento (sem re-render).
+  // Loop de animação: escreve --pace no documento (sem re-render).
   useEffect(() => {
-    let frame: number;
-    const data = new Uint8Array(64);
-    let smooth = 0;
     const root = document.documentElement;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const data = new Uint8Array(64);
+
+    let frame = 0;
+    let smooth = 0;
+    let lastWrite = "";
+    let lastFrameAt = 0;
+
+    const write = (pace: string) => {
+      if (pace === lastWrite) return;
+      lastWrite = pace;
+      root.style.setProperty("--pace", pace);
+    };
 
     const tick = (now: number) => {
-      let pace: number;
-      const analyser = analyserRef.current;
+      frame = requestAnimationFrame(tick);
+      if (now - lastFrameAt < PACE_FRAME_MS) return;
+      lastFrameAt = now;
 
+      const analyser = analyserRef.current;
       if (soundOnRef.current && analyser) {
         analyser.getByteFrequencyData(data);
         let sum = 0;
         for (let i = 2; i < 24; i += 1) sum += data[i];
         const level = sum / (22 * 255);
         smooth += (level - smooth) * 0.2;
-        pace = Math.min(1, smooth * 1.8);
-      } else if (!reduced) {
-        // Respiração de cadência: pulso por batida + base lenta.
-        const t = now / 1000;
-        const beatLen = 60 / CADENCE_BPM;
-        const phase = (t % beatLen) / beatLen;
-        const pulse = Math.exp(-phase * 4.5);
-        const breath = 0.5 + 0.5 * Math.sin(t * 0.7);
-        pace = 0.18 * breath + 0.32 * pulse;
-      } else {
-        pace = 0.2;
+        write(Math.min(1, smooth * 1.8).toFixed(2));
+        return;
       }
 
-      root.style.setProperty("--pace", pace.toFixed(3));
-      frame = requestAnimationFrame(tick);
+      // Respiração de cadência: pulso por batida + base lenta.
+      const t = now / 1000;
+      const beatLen = 60 / CADENCE_BPM;
+      const phase = (t % beatLen) / beatLen;
+      const pulse = Math.exp(-phase * 4.5);
+      const breath = 0.5 + 0.5 * Math.sin(t * 0.7);
+      write((0.18 * breath + 0.32 * pulse).toFixed(2));
     };
 
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, []);
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    // Sem loop quando o movimento não é bem-vindo ou a aba está oculta: o valor
+    // fica parado num brilho constante e nada é recalculado.
+    const sync = () => {
+      const idle = document.hidden || (motionQuery.matches && !soundOnRef.current);
+      if (idle) {
+        stop();
+        if (motionQuery.matches) write(REDUCED_MOTION_PACE);
+        return;
+      }
+      if (!frame) frame = requestAnimationFrame(tick);
+    };
+
+    sync();
+    document.addEventListener("visibilitychange", sync);
+    motionQuery.addEventListener("change", sync);
+
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", sync);
+      motionQuery.removeEventListener("change", sync);
+    };
+  }, [soundOn]);
 
   const startSound = useCallback(async () => {
     const Ctx = window.AudioContext;

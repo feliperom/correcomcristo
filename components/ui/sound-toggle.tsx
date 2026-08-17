@@ -18,12 +18,12 @@ export function SoundToggle() {
         {BARS.map((bar) => (
           <span
             key={bar}
-            className="w-[3px] rounded-full brand-fill"
+            className="h-full w-[3px] origin-bottom rounded-full brand-fill"
             style={{
-              height: soundOn
-                ? `calc(20% + var(--pace) * 80% * ${0.5 + (bar % 3) * 0.25})`
-                : "30%",
-              transition: "height 90ms linear",
+              transform: soundOn
+                ? `scaleY(calc(0.2 + var(--pace) * 0.8 * ${0.5 + (bar % 3) * 0.25}))`
+                : "scaleY(0.3)",
+              transition: "transform 90ms linear",
             }}
           />
         ))}

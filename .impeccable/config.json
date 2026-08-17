@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "app/globals.css"
+        ],
+        "createdAt": "2026-08-17T17:40:40.717Z",
+        "reason": "Claude decidiu: a classe e .map-grid, superficie de mapa explicitamente permitida pela propria regra. O sistema inteiro e a metafora de percurso: TrailLine com getPointAtLength, KmHud contando quilometros, .route-dash, .telemetry para dados de GPS, e o cabecalho do arquivo declara o conceito 'A Trilha que Glorifica'."
+      }
+    ]
+  }
+}

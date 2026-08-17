@@ -7,13 +7,29 @@ const SPAN_CLASS: Record<string, string> = {
   normal: "",
 };
 
-function thumbUrl(id: string): string {
-  return `https://lh3.googleusercontent.com/d/${id}=w1200`;
+// O CDN do Drive redimensiona pelo sufixo `=w<largura>`. Pedimos só a largura
+// que o slot usa, em vez de 1200px para todos.
+const THUMB_WIDTHS = [400, 640, 900, 1280] as const;
+
+function thumbUrl(id: string, width: number): string {
+  return `https://lh3.googleusercontent.com/d/${id}=w${width}`;
+}
+
+function thumbSrcSet(id: string): string {
+  return THUMB_WIDTHS.map((width) => `${thumbUrl(id, width)} ${width}w`).join(", ");
 }
 
 function viewUrl(id: string): string {
   return `https://drive.google.com/file/d/${id}/view`;
 }
+
+// Cada slot ocupa metade da grade no mobile e um terço a partir de lg; itens
+// `wide` dobram de largura. Isso guia o browser na escolha do srcset.
+const SPAN_SIZES: Record<string, string> = {
+  wide: "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 700px",
+  tall: "(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 350px",
+  normal: "(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 350px",
+};
 
 export function Gallery() {
   return (
@@ -62,7 +78,9 @@ export function Gallery() {
               <a href={viewUrl(photo.id)} target="_blank" rel="noopener noreferrer" className="block h-full w-full">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={thumbUrl(photo.id)}
+                  src={thumbUrl(photo.id, 640)}
+                  srcSet={thumbSrcSet(photo.id)}
+                  sizes={SPAN_SIZES[photo.span] ?? SPAN_SIZES.normal}
                   alt={photo.alt}
                   loading="lazy"
                   decoding="async"

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { siteConfig } from "@/lib/site-config";
+import lockupImage from "@/public/hero-lockup.png";
+import teamImage from "@/public/hero-team.jpg";
 
-const LOCKUP_SRC = "/hero-lockup.png";
-const TEAM_SRC = "/hero-team.jpg";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const PHRASES = [
@@ -16,30 +16,29 @@ const PHRASES = [
 ];
 
 export function Hero() {
-  const [lockupError, setLockupError] = useState(false);
-  const lockupRef = useRef<HTMLImageElement>(null);
-
-  // O 404 do lockup pode ocorrer antes da hidratação (handler ainda não
-  // anexado). Esta checagem no mount garante o fallback de texto.
-  useEffect(() => {
-    const img = lockupRef.current;
-    if (img && img.complete && img.naturalWidth === 0) setLockupError(true);
-  }, []);
-
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden">
-      {/* Atmosfera de fallback (aparece se a foto faltar) */}
+      {/* Atmosfera de fallback (aparece enquanto a foto carrega) */}
       <div aria-hidden className="absolute inset-0 map-grid bg-night" />
 
       {/* Foto da equipe — full-bleed com zoom lento */}
-      <motion.img
-        src={TEAM_SRC}
-        alt="Equipe Corre com Cristo reunida na orla da Baixada Santista"
+      <motion.div
+        aria-hidden
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: EASE }}
-        className="hero-zoom absolute inset-0 h-full w-full object-cover object-center"
-      />
+        className="absolute inset-0"
+      >
+        <Image
+          src={teamImage}
+          alt="Equipe Corre com Cristo reunida na orla da Baixada Santista"
+          fill
+          priority
+          sizes="100vw"
+          placeholder="blur"
+          className="hero-zoom object-cover object-center"
+        />
+      </motion.div>
 
       {/* Scrim teal constante (mantém o hero como "pôster" nos dois temas) */}
       <div
@@ -73,34 +72,21 @@ export function Hero() {
 
         <h1 className="font-display kinetic text-[clamp(3rem,12vw,9rem)] leading-[0.8]">
           <span className="sr-only">Corre com Cristo</span>
-          {lockupError ? (
-            <span aria-hidden>
-              {["CORRE", "COM", "CRISTO"].map((word, index) => (
-                <span key={word} className="block overflow-hidden">
-                  <motion.span
-                    className="block brand-gradient"
-                    initial={{ y: "110%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ duration: 0.9, ease: EASE, delay: 0.2 + index * 0.12 }}
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </span>
-          ) : (
-            <motion.img
-              ref={lockupRef}
-              src={LOCKUP_SRC}
+          <motion.span
+            aria-hidden
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, ease: EASE, delay: 0.25 }}
+            className="block w-full max-w-[min(88vw,40rem)] pace-glow-static"
+          >
+            <Image
+              src={lockupImage}
               alt=""
-              aria-hidden
-              onError={() => setLockupError(true)}
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 1, ease: EASE, delay: 0.25 }}
-              className="w-full max-w-[min(88vw,40rem)] pace-glow"
+              priority
+              sizes="(max-width: 768px) 88vw, 40rem"
+              className="h-auto w-full"
             />
-          )}
+          </motion.span>
         </h1>
 
         <motion.div

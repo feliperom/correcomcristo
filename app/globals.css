@@ -160,8 +160,22 @@ body {
   );
 }
 
+/**
+ * Mesmo brilho, sem pulso. Para superfícies grandes (o lockup do hero ocupa
+ * 40rem): repintar um drop-shadow desse tamanho a cada quadro custa mais do que
+ * o pulso entrega, e o elemento já se move com a entrada e o zoom do hero.
+ */
+.pace-glow-static {
+  filter: drop-shadow(0 0 18px rgba(var(--glow-rgb), 0.4));
+}
+
+/**
+ * Os halos usam blur(120px) sobre áreas de ~26rem. Promover a camada faz o
+ * browser rasterizar o desfoque uma vez e só compor a escala depois.
+ */
 .pace-scale {
   transform: scale(calc(1 + var(--pace) * 0.06));
+  will-change: transform;
 }
 
 /* ---- Telemetria / dados de GPS ------------------------------ */
@@ -217,7 +231,14 @@ body {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .pace-scale { transform: none; }
+  /* Animações paradas não precisam de camada promovida nem de dica ao compositor. */
+  .pace-scale {
+    transform: none;
+    will-change: auto;
+  }
+  .ticker-track {
+    will-change: auto;
+  }
 }
 
 /* Scrollbar discreta */

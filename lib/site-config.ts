@@ -2,7 +2,13 @@
  * Conteúdo editável do site. Tudo que muda com o tempo (links, agenda,
  * versículos, testemunhos, produtos) vive aqui. Itens marcados com
  * `isPlaceholder` precisam ser trocados pelo conteúdo real.
+ *
+ * As fotos de produto são importadas como módulo para que o build conheça
+ * largura e altura — isso reserva o espaço no layout e evita salto (CLS).
  */
+
+import capImage from "@/public/bone-corre.jpg";
+import shirtImage from "@/public/camiseta-corre.jpg";
 
 export const siteConfig = {
   name: "Corre com Cristo",
@@ -156,14 +162,16 @@ export const products = [
     name: "Boné Corre com Cristo",
     variant: "5-panel · perfurado · dry",
     price: "R$ 49",
-    href: "/bone-corre.jpg",
+    image: capImage,
+    alt: "Boné Corre com Cristo, modelo 5-panel perfurado",
     isPlaceholder: true,
   },
   {
     name: "Camiseta Corre com Cristo",
     variant: "Poliester com elastano · tratamento proteção solar",
     price: "R$ 59",
-    href: "camiseta-corre.png",
+    image: shirtImage,
+    alt: "Camiseta Corre com Cristo em poliéster com proteção solar",
     isPlaceholder: true,
   },
 ] as const;

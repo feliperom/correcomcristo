@@ -5,7 +5,6 @@ import { Hero } from "@/components/sections/hero";
 import { Manifesto } from "@/components/sections/manifesto";
 import { Pillars } from "@/components/sections/pillars";
 import { Verse } from "@/components/sections/verse";
-import { Course } from "@/components/sections/course";
 import { Schedule } from "@/components/sections/schedule";
 import { Gallery } from "@/components/sections/gallery";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -26,7 +25,7 @@ export default function Home() {
       <Manifesto />
       <Pillars />
       <Verse />
-      {/* <Course /> */}
+      {/* Percurso (components/sections/course.tsx) fora do ar até o trajeto ser confirmado. */}
       <Schedule />
       <Gallery />
       <Testimonials />
