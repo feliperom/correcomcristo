@@ -59,7 +59,7 @@ export function Hero() {
       />
 
       {/* Conteúdo ancorado embaixo à esquerda */}
-      <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-32 md:px-16 md:pb-20">
+      <div className="hero-content relative mx-auto w-full max-w-6xl px-6 pb-16 pt-32 md:px-16 md:pb-20">
         <motion.span
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1, ease: EASE, delay: 0.25 }}
-            className="block w-full max-w-[min(88vw,40rem)] pace-glow-static"
+            className="hero-lockup block w-full max-w-[min(88vw,40rem)] pace-glow-static"
           >
             <Image
               src={lockupImage}
@@ -93,7 +93,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.6 }}
-          className="mt-7 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          className="hero-intro mt-7 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
         >
           <p className="max-w-md text-balance text-lg text-white/85">
             Um movimento de pessoas que glorificam a Deus em cada passo.
@@ -102,7 +102,7 @@ export function Hero() {
           <div className="flex flex-wrap items-center gap-3">
             <a
               href="#contato"
-              className="inline-flex items-center gap-2 rounded-full brand-fill px-7 py-3.5 font-display text-base uppercase text-on-brand transition-transform hover:scale-[1.03] pace-glow"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full brand-fill px-7 py-3.5 font-display text-base uppercase text-on-brand transition-transform hover:scale-[1.03] pace-glow"
             >
               Quero correr
               <span aria-hidden>→</span>
@@ -111,7 +111,7 @@ export function Hero() {
               href={siteConfig.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-white/30 px-7 py-3.5 font-medium text-white transition-colors hover:bg-white/10"
+              className="inline-flex min-h-11 items-center rounded-full border border-white/30 px-7 py-3.5 font-medium text-white transition-colors hover:bg-white/10"
             >
               {siteConfig.instagram.handle}
             </a>
@@ -120,7 +120,7 @@ export function Hero() {
       </div>
 
       {/* Ticker das frases */}
-      <div className="pointer-events-none relative w-full overflow-hidden border-t border-white/10 py-3">
+      <div className="hero-ticker pointer-events-none relative w-full overflow-hidden border-t border-white/10 py-3">
         <div className="ticker-track">
           {[0, 1].map((loop) => (
             <span key={loop} className="flex items-center">

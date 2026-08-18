@@ -87,6 +87,12 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#052e2b",
+  /**
+   * O hero é um pôster sangrado, então a foto deve ir até a borda física da
+   * tela em vez de ficar dentro das tarjas do notch. Quem fica perto das bordas
+   * (cabeçalho, skip link) compensa com env(safe-area-inset-*).
+   */
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

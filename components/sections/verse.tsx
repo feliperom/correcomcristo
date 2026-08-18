@@ -52,17 +52,26 @@ export function Verse() {
           </motion.blockquote>
         </AnimatePresence>
 
-        <div className="mt-10 flex justify-center gap-2">
+        {/*
+          O traço continua com 6px, mas quem recebe o toque é o botão de 44px de
+          altura em volta dele — antes o alvo inteiro tinha 6×6.
+        */}
+        <div className="verse-dots mt-10 flex justify-center">
           {verses.map((item, dot) => (
             <button
               key={item.ref}
               type="button"
               onClick={() => setIndex(dot)}
               aria-label={`Ver ${item.ref}`}
-              className={`h-1.5 rounded-full transition-all ${
-                dot === index ? "w-8 brand-fill" : "w-1.5 bg-spring/30"
-              }`}
-            />
+              aria-current={dot === index}
+              className="grid h-11 place-items-center px-2.5"
+            >
+              <span
+                className={`h-1.5 rounded-full transition-all ${
+                  dot === index ? "w-8 brand-fill" : "w-1.5 bg-spring/30"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

@@ -113,9 +113,12 @@ html {
 /* Atalho de teclado: fica fora da tela até receber foco. */
 .skip-link {
   position: fixed;
-  top: 0.75rem;
-  left: 0.75rem;
+  top: max(0.75rem, env(safe-area-inset-top));
+  left: max(0.75rem, env(safe-area-inset-left));
   z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   transform: translateY(-150%);
   border-radius: 999px;
   background: var(--color-spring);
@@ -257,6 +260,57 @@ body {
   white-space: nowrap;
   will-change: transform;
   animation: ticker-run 28s linear infinite;
+}
+
+/**
+ * Hero em tela baixa (celular deitado).
+ *
+ * O lockup é dimensionado pela largura — em landscape a largura sobra e a
+ * altura some, então ele sozinho ficava mais alto que a viewport inteira e
+ * empurrava o CTA para fora da dobra. Aqui a largura máxima passa a derivar da
+ * altura disponível: o lockup tem proporção ~1.62, então limitar a largura a
+ * 1.62 × altura é limitar a altura.
+ */
+@media (orientation: landscape) and (max-height: 620px) {
+  .hero-lockup {
+    max-width: min(88vw, 40rem, calc(30svh * 1.62));
+  }
+
+  .hero-content {
+    padding-top: 4.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .hero-content .hero-intro {
+    margin-top: 1rem;
+  }
+
+  .hero-ticker {
+    padding-block: 0.4rem;
+  }
+
+  /* Telemetria de rolagem não cabe: o HUD de km colidia com o texto do hero. */
+  .scroll-telemetry {
+    display: none;
+  }
+}
+
+/* Alvos de toque: ponteiro grosso ganha área, ponteiro fino mantém a precisão. */
+@media (pointer: coarse) {
+  .verse-dots button {
+    padding-inline: 0.75rem;
+  }
+}
+
+/**
+ * A etiqueta "Baixar" da galeria aparecia só no hover. Em toque não existe
+ * hover, então ela ficava permanentemente invisível: aqui ela é sempre visível.
+ */
+@media (hover: none) {
+  .photo-hint,
+  .photo-scrim {
+    opacity: 1;
+  }
 }
 
 /* Zoom lento estilo Ken Burns para o hero */

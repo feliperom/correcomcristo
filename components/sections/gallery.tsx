@@ -89,8 +89,8 @@ export function Gallery() {
                   referrerPolicy="no-referrer"
                   className="h-full w-full bg-teal-900 object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                <span className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-1.5 text-xs font-medium text-ink opacity-0 transition-opacity group-hover:opacity-100">
+                <span className="photo-scrim pointer-events-none absolute inset-0 bg-gradient-to-t from-night/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                <span className="photo-hint pointer-events-none absolute bottom-3 left-3 flex items-center gap-1.5 text-xs font-medium text-ink opacity-0 transition-opacity group-hover:opacity-100">
                   <DownloadIcon />
                   Baixar
                 </span>

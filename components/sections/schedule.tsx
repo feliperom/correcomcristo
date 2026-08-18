@@ -26,7 +26,7 @@ export function Schedule() {
             </div>
             <a
               href="https://chat.whatsapp.com/DyLulSTgpqm1VVE96naMQp?mode=gi_t"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full brand-fill px-6 py-3 font-display text-sm uppercase text-on-brand transition-transform hover:scale-[1.03]"
+              className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full brand-fill px-6 py-3 font-display text-sm uppercase text-on-brand transition-transform hover:scale-[1.03]"
             >
               Quero participar →
             </a>

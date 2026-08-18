@@ -36,7 +36,7 @@ export function TrailLine() {
     <div
       ref={wrapRef}
       aria-hidden
-      className="pointer-events-none fixed left-3 top-0 z-30 hidden h-screen w-16 md:block lg:left-6 lg:w-20"
+      className="scroll-telemetry pointer-events-none fixed left-3 top-0 z-30 hidden h-screen w-16 md:block lg:left-6 lg:w-20"
     >
       <svg
         viewBox="0 0 100 1000"

@@ -85,7 +85,7 @@ export function TopBar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-4 py-4 md:px-6">
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between py-4 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-[max(1rem,env(safe-area-inset-top))] md:pl-[max(1.5rem,env(safe-area-inset-left))] md:pr-[max(1.5rem,env(safe-area-inset-right))]">
         <a
           href="#top"
           aria-label="Corre com Cristo · início"

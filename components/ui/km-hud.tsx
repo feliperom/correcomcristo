@@ -16,7 +16,7 @@ export function KmHud() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed bottom-5 left-5 z-40 hidden flex-col items-start gap-1 md:flex"
+      className="scroll-telemetry pointer-events-none fixed bottom-5 left-5 z-40 hidden flex-col items-start gap-1 md:flex"
     >
       <div className="flex items-baseline gap-1">
         <span className="font-display text-3xl tabular-nums brand-gradient pace-glow">
